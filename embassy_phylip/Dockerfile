@@ -1,0 +1,23 @@
+#################################################################
+# Dockerfile
+# Software:         embassy-phylip
+# Software Version: 3.69.650-2
+# Description:      EMBOSS conversions of the programs in the phylip package
+# Website:          http://emboss.sourceforge.net/what/
+# Tags:             Proteomics|Genomics|General
+# Provides:         emboss 6.6.0-1 && embassy-phylip 3.69.650-2
+#################################################################
+
+# Base docker image
+FROM ubuntu:14.04
+MAINTAINER test@armadillo.uqam.ca
+
+# Install EMBOSS amd embassy-domainatrix package
+RUN apt-get update && apt-get install -y \
+    emboss=6.6.0-1 \
+    embassy-phylip=3.69.650-2 \
+ && apt-get clean \
+ && apt-get purge \
+ && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+WORKDIR /data
