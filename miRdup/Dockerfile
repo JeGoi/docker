@@ -6,9 +6,18 @@
 # Website:          http://cs.mcgill.ca/~blanchem/mirdup/
 # Tags:             Proteomics|Genomics|General
 # Provides:         miRdup V1.4
-# WARNING :         YOUR.model needs to be in /miRdup/YOUR.model or it will not work
-#                   Use the sharing folder /data and cp command to transfert the model before using miRdup.
-# Use :             java -jar miRdup.jar -predict -i ./testFiles/prediction.infile.fasta -d all19.model -f /data/results/outfile -r ./ViennaRNA/bin/
+#
+# WARNING :         YourModels.model needs to be in /miRdup/YourModels.model or -d option will crash the program
+#                   Use the sharing folder /data/models and cp command to transfert the model before using miRdup.jar
+#                   find /data/models/ -maxdepth 1 -type f -name '*.model$' -exec cp {} ./ \;
+# Use :             java -jar /miRdup/miRdup.jar -predict -i ./testFiles/prediction.infile.fasta -d all19.model -f /data/results/outfile -r ./ViennaRNA/bin/
+#
+# WARNING :         YourModels.model needs to be transfered after the training
+#                   Use the sharing folder /data/models/ and cp command to transfert the model before quit the program.
+#                   find /miRdup/ -maxdepth 1 -type f -name '*.model$' -exec cp {} /data/models/ \;
+#                   After the copy new models, owner files will be "root". Just copy paste (again) the new model if needed
+# Use :             java -Xms500m -Xmx3500m -jar miRdup.jar -k all -r ./ViennaRNA/bin/
+# Use :             java -Xms500m -Xmx3500m -jar miRdup.jar -k primates -r ./ViennaRNA/bin/ \&& find /miRdup/ -maxdepth 1 -type f -name '*.model$' -exec cp {} /data/models/
 #################################################################
 
 # Base docker image
@@ -30,10 +39,12 @@ RUN apt-get --quiet update >> ~/install.log \
  && apt-get purge \
  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+# Create rep
+RUN mkdir /miRdup /data
+
 # Get miRdup
 RUN cd ~ \
  && wget --quiet http://cs.mcgill.ca/~blanchem/mirdup/miRdup_1.4.zip -O miRdup_1.4.zip \
- && mkdir /miRdup \
  && unzip -qq miRdup_1.4.zip -d /miRdup \
  && rm -f miRdup_1.4.zip
 
@@ -51,4 +62,4 @@ RUN cd /miRdup \
 
 RUN chmod -R 777 /miRdup
 
-WORKDIR /data
+WORKDIR /miRdup
