@@ -15,7 +15,7 @@ MAINTAINER test@armadillo.uqam.ca
 # Install embassy-phylip package
 RUN apt-get --quiet update
  && apt-get install -qqy \
-    embassy-phylip=3.69.650-2 \
+    embassy-phylip=3.69.650-2 \ Looks like doesn't pass the docker hub building
  && apt-get clean \
  && apt-get purge \
  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
