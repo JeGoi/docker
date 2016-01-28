@@ -8,16 +8,16 @@
 # Provides:         miRdup V1.4
 #
 # WARNING :         YourModels.model needs to be in /miRdup/YourModels.model or -d option will crash the program
-#                   Use the sharing folder /data/models and cp command to transfert the model before using miRdup.jar
-#                   find /data/models/ -maxdepth 1 -type f -name '*.model$' -exec cp {} ./ \;
-# Use :             java -jar /miRdup/miRdup.jar -predict -i ./testFiles/prediction.infile.fasta -d all19.model -f /data/results/outfile -r ./ViennaRNA/bin/
+#                   Use the shared folder /data/ to transfert the model before using miRdup.jar
+# Copy:             find /data/ -maxdepth 1 -type f -name '*.model$' -exec cp {} ./ \;
+# Run :             java -jar /miRdup/miRdup.jar -predict -i ./testFiles/prediction.infile.fasta -d all19.model -f /data/results/outfile -r ./ViennaRNA/bin/
 #
-# WARNING :         YourModels.model needs to be transfered after the training
-#                   Use the sharing folder /data/models/ and cp command to transfert the model before quit the program.
-#                   find /miRdup/ -maxdepth 1 -type f -name '*.model$' -exec cp {} /data/models/ \;
-#                   After the copy new models, owner files will be "root". Just copy paste (again) the new model if needed
+# WARNING :         YourNewModels.model needs to be transfered after their creation
+#                   Use the sharing folder /data/ to transfert the model before quit the container
+# Copy:             find /miRdup/ -maxdepth 1 -type f -name '*.model$' -exec cp {} /data/ \;
+#                   After the copy new models, owner files will be "root". Just copy paste (again) the new model if needed;
 # Use :             java -Xms500m -Xmx3500m -jar miRdup.jar -k all -r ./ViennaRNA/bin/
-# Use :             java -Xms500m -Xmx3500m -jar miRdup.jar -k primates -r ./ViennaRNA/bin/ \&& find /miRdup/ -maxdepth 1 -type f -name '*.model$' -exec cp {} /data/models/
+# Use :             java -Xms500m -Xmx3500m -jar miRdup.jar -k primates -r ./ViennaRNA/bin/ && find /miRdup/ -maxdepth 1 -type f -name '*.model$' -exec cp {} /data/models/ \; && chmod -R 777 /data/
 #################################################################
 
 # Base docker image
