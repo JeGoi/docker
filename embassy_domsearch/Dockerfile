@@ -13,7 +13,7 @@ FROM jego/emboss
 MAINTAINER test@armadillo.uqam.ca
 
 # Install embassy-domsearch package
-RUN apt-get --quiet update
+RUN apt-get --quiet update \
  && apt-get install -qqy \
     embassy-domsearch=1:0.1.650-1 \
  && apt-get clean \
