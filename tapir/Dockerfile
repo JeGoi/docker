@@ -3,7 +3,7 @@
 # Software:         TAPIR
 # Software Version: 1.2
 # Description:      Computational prediction of the localization of microRNAs within their pre-miRNA
-# Website:          http://cs.mcgill.ca/~blanchem/mirdup/
+# Website:          http://bioinformatics.psb.ugent.be/webtools/tapir/
 # Tags:             Proteomics|Genomics|General
 # Provides:         miRdup V1.2
 # Dependencies :    vienna and bioperl
