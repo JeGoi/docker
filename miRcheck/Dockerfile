@@ -20,7 +20,7 @@ FROM ubuntu:14.04
 MAINTAINER test@armadillo.uqam
 ARG DEBIAN_FRONTEND=noninteractive
 
-# Install miRdup and dependencies
+# Install miRcheck and dependencies
 RUN apt-get clean 
 
 # Prepare installation
@@ -65,7 +65,7 @@ RUN cd ~ \
 USER root
 ENV PATH="$PATH:/root/scan_for_matches"
 
-# Change miRcheck lib localization
+# Update miRcheck lib localization
 RUN cd ~/miRcheck \
  && sed -i 's/\/home2\/mjonesrh/\/root/g' evaluate_miRNA_candidates.pl \
  && sed -i 's/\/home2\/mjonesrh/\/root/g' extract_einverted_20mers.pl \
