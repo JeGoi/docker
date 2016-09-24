@@ -2,15 +2,17 @@
 # Dockerfile
 # Software:         miRcheck
 # Software Version: 
-# Description:      Computational prediction of the localization of microRNAs within their pre-miRNA
-# Website:          http://cs.mcgill.ca/~blanchem/mirdup/
+# Description:      miRcheck and various perl scripts useful in identfying plant miRNA genes.
+# Website:          http://bartellab.wi.mit.edu/softwareDocs/
+# Files:            http://bartellab.wi.mit.edu/softwareDocs/miRcheck.tar
 # Tags:             Proteomics|Genomics|General
-# Provides:         miRdup V1.4
+# Provides:         miRcheck
 #
-# Run :             java -Xms500m -Xmx3500m -jar miRdup.jar -k all -r /usr/bin/
-# Run :             java -jar miRdup.jar -predict -i [PATH/TO/INPUT]/infile.fasta -d [PATH/TO/MODEL]/model.model -f [PATH/TO/OUTPUT/REP]/outfile -r /usr/bin/
+# Run :             perl ~/script_you_need [options]
+# Run :             
 # If needed, copy new models in model folder
-# Copy:             find /miRdup/ -maxdepth 1 -type f -name '*.model' -exec cp {} [PATH/TO/MODEL] \;
+# Copy:             
+# Modifications:    Few files have been modified during installation to add option or to update files with current OS.
 #################################################################
 
 # Base docker image
