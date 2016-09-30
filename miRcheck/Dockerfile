@@ -76,7 +76,7 @@ RUN cd ~/miRcheck \
  && sed -i 's/\/home2\/mjonesrh\/exe\/linuxexe\/RNAfold_original/RNAfold/g' miRcheck.pm \
  && sed -i 's/\/home2\/mjonesrh/\/root/g' test_mircheck.pl
 
-# Add options in perl files
+# Add options in extract_einverted_20mers.pl
 RUN cd ~/miRcheck \
   && sed -i '26i \
 while (@ARGV){\n \
@@ -94,6 +94,15 @@ while (@ARGV){\n \
     if ($thisarg eq "-max_two_nt") {$MAX_TWO_NT=shift @ARGV;}\n \
 }\n\n \
 '  extract_einverted_20mers.pl 
+
+# Add options in fold_inverted_repeats.pl
+RUN cd ~/miRcheck \
+  && sed -i '14i \
+while (@ARGV){\n \
+    $thisarg = shift @ARGV;\n \
+    if ($thisarg eq "-flanking_nt" ) {$FLANKING_NT=shift @ARGV;} \n \
+}\n\n \
+'  fold_inverted_repeats.pl
 
 # Create rep
 RUN mkdir ~/data
