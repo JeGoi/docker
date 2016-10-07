@@ -92,6 +92,7 @@ while (@ARGV){\n \
     if ($thisarg eq "-bp_ext") {$BP_EXTENSION=shift @ARGV;}\n \
     if ($thisarg eq "-max_one_nt") {$MAX_ONE_NT=shift @ARGV;}\n \
     if ($thisarg eq "-max_two_nt") {$MAX_TWO_NT=shift @ARGV;}\n \
+    if ($thisarg eq "-block") {$BLOCK =shift @ARGV;}\n \
 }\n\n \
 '  extract_einverted_20mers.pl 
 
@@ -104,10 +105,28 @@ while (@ARGV){\n \
 }\n\n \
 '  fold_inverted_repeats.pl
 
+# Add options in run_einverted.pl
+RUN cd ~/miRcheck \
+  && sed -i '28i \
+\n \
+while (@ARGV){\n \
+    $thisarg = shift @ARGV;\n \
+    if ($thisarg eq "-win" ) {$WIN=shift @ARGV;} \n \
+    if ($thisarg eq "-step" ) {$step=shift @ARGV;}\n \
+    if ($thisarg eq "-min_pct" ) {$MIN_PCT=shift @ARGV;}\n \
+    if ($thisarg eq "-min_arm") {$MIN_ARM=shift @ARGV;}\n \
+    if ($thisarg eq "-gap") {$GAP=shift @ARGV;}\n \
+    if ($thisarg eq "-tresh") {$THRESH=shift @ARGV;}\n \
+    if ($thisarg eq "-m") {$M=shift @ARGV;}\n \
+    if ($thisarg eq "-mm") {$MM=shift @ARGV;}\n \
+    if ($thisarg eq "-dist") {$DIST=shift @ARGV;}\n \
+}\n\n \
+'  run_einverted.pl
+
 # Create rep
 RUN mkdir ~/data
 
 RUN cd ~ \
  && chmod -R 777 ./miRcheck
 
-WORKDIR ~/data
+WORKDIR /root/data
