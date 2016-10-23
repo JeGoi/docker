@@ -143,6 +143,25 @@ if (not($outfile)){print "usage: simple_patscan.pl query.fa database.fa outfile 
 \n\
 '  run_patscan.pl
 
+# Add options in retrieve_genomic_regions.pl
+RUN cd ~/miRcheck \
+  && sed -i".bak" '4,12d' retrieve_genomic_regions.pl \
+  && sed -i '4i \
+# usage:  retrieve_genomic_regions.pl sample_miRNA_matches  sample_genome.fa sample_miRNA_matches_genomic -win window_size \n\
+\n\
+$hitfile =$ARGV[0]; # list of sequences and genomic coorinates\n\
+$genome = $ARGV[1]; #Fasta file of genomic sequence\n\
+$outfile = $ARGV [2]; #name of outputfile\n\
+$WIN = 0; # number of flanking nucleotides to add to each side of putative miRNA  \n\
+\n\
+while (@ARGV){\n\
+    $thisarg = shift @ARGV;\n\
+    if ($thisarg eq "-win" ) {$WIN=shift @ARGV;} \n\
+} \n\n\
+\n\
+if (not($outfile)){print "usage: retrieve_genomic_regions.pl sample_miRNA_matches  sample_genome.fa sample_miRNA_matches_genomic -win window_size\n";exit;}\n\
+'  retrieve_genomic_regions.pl
+
 # Create rep
 RUN mkdir ~/data
 
