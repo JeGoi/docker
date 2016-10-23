@@ -123,6 +123,28 @@ while (@ARGV){\n \
 }\n\n \
 '  run_einverted.pl
 
+# Add options in run_patscan.pl
+RUN cd ~/miRcheck \
+  && sed '8,10d' run_patscan.pl \
+  && sed -i 's/ARGV\[5\]/ARGV\[2\]/' run_patscan.pl \
+  && sed '10d' run_patscan.pl \
+  && sed -i '10i \
+$mismatches = 0; \n \
+$deletions  = 0; \n \
+$insertions = 0; \n \
+\n \
+while (@ARGV){\n \
+    $thisarg = shift @ARGV;\n \
+    if ($thisarg eq "-mismatches" ) {$mismatches=shift @ARGV;} \n \
+    if ($thisarg eq "-deletions" )  {$deletions =shift @ARGV;}\n \
+    if ($thisarg eq "-insertions" ) {$insertions=shift @ARGV;}\n \
+}\n\n  \
+if (not($outfile)){print "usage: simple_patscan.pl query.fa database.fa outfile -mismatches 0 -deletions 0 -insertions 0 \\n";exit;}\n \
+\n \
+'  run_patscan.pl
+
+ 
+
 # Create rep
 RUN mkdir ~/data
 
