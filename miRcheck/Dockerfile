@@ -125,9 +125,9 @@ while (@ARGV){\n\
 
 # Add options in run_patscan.pl
 RUN cd ~/miRcheck \
-  && sed '8,10d' run_patscan.pl \
+  && sed -i".bak" '8,10d' run_patscan.pl \
   && sed -i 's/ARGV\[5\]/ARGV\[2\]/' run_patscan.pl \
-  && sed '10d' run_patscan.pl \
+  && sed -i".bak" '10d' run_patscan.pl \
   && sed -i '10i \
 $mismatches = 0; \n\
 $deletions  = 0; \n\
