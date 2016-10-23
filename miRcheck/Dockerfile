@@ -79,48 +79,48 @@ RUN cd ~/miRcheck \
 # Add options in extract_einverted_20mers.pl
 RUN cd ~/miRcheck \
   && sed -i '26i \
-while (@ARGV){\n \
-    $thisarg = shift @ARGV;\n \
-    if ($thisarg eq "-unpair" ) {$MAX_UNPAIR=shift @ARGV;}\n \
-    if ($thisarg eq "-star_unpair" ) {$MAX_STAR_UNPAIR=shift @ARGV;}\n \
-    if ($thisarg eq "-size_diff" ) {$MAX_SIZEDIFFERENCE=shift @ARGV;}\n \
-    if ($thisarg eq "-mir_bulge") {$MAX_MIR_GAP=shift @ARGV;}\n \
-    if ($thisarg eq "-star_bulge") {$MAX_STAR_GAP=shift @ARGV;}\n \
-    if ($thisarg eq "-fback_min") {$MIN_FBACK_SIZE=shift @ARGV;}\n \
-    if ($thisarg eq "-ass") {$MAX_MIR_AS_BULGE=shift @ARGV;}\n \
-    if ($thisarg eq "-min_unpair") {$MIN_UNPAIR=shift @ARGV;}\n \
-    if ($thisarg eq "-bp_ext") {$BP_EXTENSION=shift @ARGV;}\n \
-    if ($thisarg eq "-max_one_nt") {$MAX_ONE_NT=shift @ARGV;}\n \
-    if ($thisarg eq "-max_two_nt") {$MAX_TWO_NT=shift @ARGV;}\n \
-    if ($thisarg eq "-block") {$BLOCK =shift @ARGV;}\n \
-}\n\n \
+while (@ARGV){\n\
+    $thisarg = shift @ARGV;\n\
+    if ($thisarg eq "-unpair" ) {$MAX_UNPAIR=shift @ARGV;} \n\
+    if ($thisarg eq "-star_unpair" ) {$MAX_STAR_UNPAIR=shift @ARGV;} \n\
+    if ($thisarg eq "-size_diff" ) {$MAX_SIZEDIFFERENCE=shift @ARGV;} \n\
+    if ($thisarg eq "-mir_bulge") {$MAX_MIR_GAP=shift @ARGV;} \n\
+    if ($thisarg eq "-star_bulge") {$MAX_STAR_GAP=shift @ARGV;} \n\
+    if ($thisarg eq "-fback_min") {$MIN_FBACK_SIZE=shift @ARGV;} \n\
+    if ($thisarg eq "-ass") {$MAX_MIR_AS_BULGE=shift @ARGV;} \n\
+    if ($thisarg eq "-min_unpair") {$MIN_UNPAIR=shift @ARGV;} \n\
+    if ($thisarg eq "-bp_ext") {$BP_EXTENSION=shift @ARGV;} \n\
+    if ($thisarg eq "-max_one_nt") {$MAX_ONE_NT=shift @ARGV;} \n\
+    if ($thisarg eq "-max_two_nt") {$MAX_TWO_NT=shift @ARGV;} \n\
+    if ($thisarg eq "-block") {$BLOCK =shift @ARGV;} \n\
+} \n\n\
 '  extract_einverted_20mers.pl 
 
 # Add options in fold_inverted_repeats.pl
 RUN cd ~/miRcheck \
   && sed -i '14i \
-while (@ARGV){\n \
-    $thisarg = shift @ARGV;\n \
-    if ($thisarg eq "-flanking_nt" ) {$FLANKING_NT=shift @ARGV;} \n \
-}\n\n \
+while (@ARGV){\n\
+    $thisarg = shift @ARGV;\n\
+    if ($thisarg eq "-flanking_nt" ) {$FLANKING_NT=shift @ARGV;} \n\
+} \n\n\
 '  fold_inverted_repeats.pl
 
 # Add options in run_einverted.pl
 RUN cd ~/miRcheck \
   && sed -i '28i \
-\n \
-while (@ARGV){\n \
-    $thisarg = shift @ARGV;\n \
-    if ($thisarg eq "-win" ) {$WIN=shift @ARGV;} \n \
-    if ($thisarg eq "-step" ) {$step=shift @ARGV;}\n \
-    if ($thisarg eq "-min_pct" ) {$MIN_PCT=shift @ARGV;}\n \
-    if ($thisarg eq "-min_arm") {$MIN_ARM=shift @ARGV;}\n \
-    if ($thisarg eq "-gap") {$GAP=shift @ARGV;}\n \
-    if ($thisarg eq "-tresh") {$THRESH=shift @ARGV;}\n \
-    if ($thisarg eq "-m") {$M=shift @ARGV;}\n \
-    if ($thisarg eq "-mm") {$MM=shift @ARGV;}\n \
-    if ($thisarg eq "-dist") {$DIST=shift @ARGV;}\n \
-}\n\n \
+\n\
+while (@ARGV){\n\
+    $thisarg = shift @ARGV;\n\
+    if ($thisarg eq "-win" ) {$WIN=shift @ARGV;} \n\
+    if ($thisarg eq "-step" ) {$step=shift @ARGV;} \n\
+    if ($thisarg eq "-min_pct" ) {$MIN_PCT=shift @ARGV;} \n\
+    if ($thisarg eq "-min_arm") {$MIN_ARM=shift @ARGV;} \n\
+    if ($thisarg eq "-gap") {$GAP=shift @ARGV;} \n\
+    if ($thisarg eq "-tresh") {$THRESH=shift @ARGV;} \n\
+    if ($thisarg eq "-m") {$M=shift @ARGV;} \n\
+    if ($thisarg eq "-mm") {$MM=shift @ARGV;} \n\
+    if ($thisarg eq "-dist") {$DIST=shift @ARGV;} \n\
+} \n\n\
 '  run_einverted.pl
 
 # Add options in run_patscan.pl
@@ -129,21 +129,19 @@ RUN cd ~/miRcheck \
   && sed -i 's/ARGV\[5\]/ARGV\[2\]/' run_patscan.pl \
   && sed '10d' run_patscan.pl \
   && sed -i '10i \
-$mismatches = 0; \n \
-$deletions  = 0; \n \
-$insertions = 0; \n \
-\n \
-while (@ARGV){\n \
-    $thisarg = shift @ARGV;\n \
-    if ($thisarg eq "-mismatches" ) {$mismatches=shift @ARGV;} \n \
-    if ($thisarg eq "-deletions" )  {$deletions =shift @ARGV;}\n \
-    if ($thisarg eq "-insertions" ) {$insertions=shift @ARGV;}\n \
-}\n\n  \
-if (not($outfile)){print "usage: simple_patscan.pl query.fa database.fa outfile -mismatches 0 -deletions 0 -insertions 0 \\n";exit;}\n \
-\n \
+$mismatches = 0; \n\
+$deletions  = 0; \n\
+$insertions = 0; \n\
+\n\
+while (@ARGV){\n\
+    $thisarg = shift @ARGV;\n\
+    if ($thisarg eq "-mismatches" ) {$mismatches=shift @ARGV;} \n\
+    if ($thisarg eq "-deletions" )  {$deletions =shift @ARGV;} \n\
+    if ($thisarg eq "-insertions" ) {$insertions=shift @ARGV;} \n\
+} \n\n\
+if (not($outfile)){print "usage: simple_patscan.pl query.fa database.fa outfile -mismatches 0 -deletions 0 -insertions 0 \\n";exit;} \n\
+\n\
 '  run_patscan.pl
-
- 
 
 # Create rep
 RUN mkdir ~/data
