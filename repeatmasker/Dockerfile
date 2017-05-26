@@ -81,14 +81,5 @@ RUN cd /usr/local/RepeatMasker && \
         -e 's/DEFAULT_SEARCH_ENGINE = "crossmatch"/DEFAULT_SEARCH_ENGINE = "ncbi"/g;' \ 
         -e 's/TRF_PRGM = ""/TRF_PRGM = "\/usr\/local\/bin\/trf"/g;' RepeatMaskerConfig.tmpl > RepeatMaskerConfig.pm
 
-# I can't bundle the girinst RepBase libraries with the docker image,
-# so you'll need to get them yourself. Download them from
-# http://www.girinst.org/server/RepBase/protected/repeatmaskerlibraries/repeatmaskerlibraries-20140131.tar.gz
-#ONBUILD ADD repeatmaskerlibraries.tar.gz /usr/local/RepeatMasker
-#ONBUILD WORKDIR /usr/local/RepeatMasker
-#ONBUILD RUN util/buildRMLibFromEMBL.pl Libraries/RMRBSeqs.embl > Libraries/RepeatMasker.lib && \
-#        makeblastdb -dbtype nucl -in Libraries/RepeatMasker.lib > /dev/null 2>&1 && \
-#        makeblastdb -dbtype prot -in Libraries/RepeatPeps.lib > /dev/null 2>&1
-
 ENV PATH /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/RepeatMasker:/usr/local/RepeatScout
 #ENTRYPOINT ["/usr/local/RepeatMasker/RepeatMasker"]
