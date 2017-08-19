@@ -5,7 +5,7 @@
 # Description:      Computational prediction of the localization of microRNAs within their pre-miRNA
 # Website:          http://bioinformatics.psb.ugent.be/webtools/tapir/
 # Tags:             Proteomics|Genomics|General
-# Provides:         miRdup V1.2
+# Provides:         Tapir V1.2
 # Dependencies :    vienna and bioperl
 #################################################################
 
