@@ -36,6 +36,7 @@ RUN apt-add-repository -y ppa:j-4/vienna-rna \
  && apt-get purge \
  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN chmod -R 777 /data
+RUN mkdir -p /data/inputs \
+    /data/outputs
 
 WORKDIR /data

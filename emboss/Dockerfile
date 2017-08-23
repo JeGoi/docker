@@ -19,4 +19,7 @@ RUN apt-get update && apt-get install -y \
  && apt-get purge \
  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+RUN mkdir -p /data/inputs \
+    /data/outputs
+
 WORKDIR /data

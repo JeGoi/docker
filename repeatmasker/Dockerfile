@@ -82,4 +82,8 @@ RUN cd /usr/local/RepeatMasker && \
         -e 's/TRF_PRGM = ""/TRF_PRGM = "\/usr\/local\/bin\/trf"/g;' RepeatMaskerConfig.tmpl > RepeatMaskerConfig.pm
 
 ENV PATH /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/RepeatMasker:/usr/local/RepeatScout
+
+RUN mkdir -p /data/inputs \
+    /data/outputs
+
 #ENTRYPOINT ["/usr/local/RepeatMasker/RepeatMasker"]

@@ -24,6 +24,7 @@ RUN apt-get --quiet update \
  && apt-get purge \
  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN mkdir /data
-RUN chmod -R 777 /data
+RUN mkdir -p /data/inputs \
+    /data/outputs
+
 WORKDIR /data

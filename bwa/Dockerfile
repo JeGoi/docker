@@ -26,5 +26,5 @@ RUN apt-get --quiet update \
 
 RUN mkdir -p /data/inputs \
     /data/outputs
-RUN chmod -R 777 /data
+
 WORKDIR /data

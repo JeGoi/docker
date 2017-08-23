@@ -38,4 +38,7 @@ RUN cd /TAPIR \
 
 RUN chmod -x -R /TAPIR
 
+RUN mkdir -p /data/inputs \
+    /data/outputs
+
 WORKDIR /TAPIR

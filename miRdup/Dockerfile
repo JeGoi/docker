@@ -50,6 +50,9 @@ RUN apt-add-repository -y ppa:j-4/vienna-rna \
  && apt-get purge \
  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN chmod -R 777 /miRdup
+RUN mkdir -p /data/inputs \
+    /data/outputs
+
+#RUN chmod -R 777 /miRdup
 
 WORKDIR /miRdup

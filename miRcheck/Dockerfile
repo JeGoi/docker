@@ -8,7 +8,7 @@
 # Tags:             Proteomics|Genomics|General
 # Provides:         miRcheck
 #
-# Run :             perl ~/script_you_need [options]
+# Run :             perl ~/miRcheck/script_you_need [options]
 # Run :             
 # If needed, copy new models in model folder
 # Copy:             
@@ -163,9 +163,10 @@ if (not($outfile)){print "usage: retrieve_genomic_regions.pl sample_miRNA_matche
 '  retrieve_genomic_regions.pl
 
 # Create rep
-RUN mkdir ~/data
+RUN mkdir -p /data/inputs \
+    /data/outputs
 
-RUN cd ~ \
- && chmod -R 777 ./miRcheck
+#RUN cd ~ \
+# && chmod -R 777 ./miRcheck
 
-WORKDIR /root/data
+WORKDIR /data
