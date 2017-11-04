@@ -27,7 +27,7 @@ RUN apt-get --quiet update \
  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Create rep
-RUN mkdir /TAPIR /data
+RUN mkdir /TAPIR
 
 # Get TAPIR
 RUN cd /TAPIR \
@@ -41,4 +41,4 @@ RUN chmod -x -R /TAPIR
 RUN mkdir -p /data/inputs \
     /data/outputs
 
-WORKDIR /TAPIR
+WORKDIR /data
