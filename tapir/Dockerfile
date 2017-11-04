@@ -17,12 +17,14 @@ MAINTAINER test@armadillo.uqam
 RUN apt-get clean 
 
 # Prepare installation
-RUN apt-get --quiet update \
- && apt-get -qqy install \
+RUN apt-get --quiet update
+
+RUN apt-get -qqy install \
     wget \
     bioperl \
-    tar \
- && apt-get clean \
+    tar 
+    
+RUN apt-get clean \
  && apt-get purge \
  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
@@ -36,7 +38,11 @@ RUN cd /TAPIR \
  && rm -f tapir-1.2.tar.gz \
  export PATH="${PATH}:/TAPIR/tapir-1.2"
 
-RUN chmod -x -R /TAPIR
+RUN chmod +x /TAPIR/tapir-1.2/hybrid_parser \
+ /TAPIR/tapir-1.2/hybrid_parser \
+ /TAPIR/tapir-1.2/tapir2tab \
+ /TAPIR/tapir-1.2/tapir_fasta \
+ /TAPIR/tapir-1.2/tapir_hybrid
 
 RUN mkdir -p /data/inputs \
     /data/outputs
