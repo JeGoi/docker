@@ -8,7 +8,7 @@
 # Tags:             Proteomics|Genomics|General
 # Provides:         miRcheck
 #
-# Run :             perl ~/miRcheck/script_you_need [options]
+# Run :             perl /programs/miRcheck/script_you_need [options]
 # Run :             
 # If needed, copy new models in model folder
 # Copy:             
@@ -96,6 +96,8 @@ while (@ARGV){\n\
     if ($thisarg eq "-max_two_nt") {$MAX_TWO_NT=shift @ARGV;} \n\
     if ($thisarg eq "-block") {$BLOCK =shift @ARGV;} \n\
 } \n\n\
+if (not($outfile)){print "Script that calls miRcheck on folded inverted repeats to identify 20mer miRNA candidates \n\
+usage:  extract_einverted_20mers.pl sample_IRs_f sample_IRs_f_20mers \\n";exit;} \n\
 '  extract_einverted_20mers.pl 
 
 # Add options in fold_inverted_repeats.pl
@@ -167,11 +169,12 @@ while (@ARGV){\n\
 if (not($outfile)){print "usage: retrieve_genomic_regions.pl sample_miRNA_matches  sample_genome.fa sample_miRNA_matches_genomic -win window_size\n";exit;}\n\
 '  retrieve_genomic_regions.pl
 
-# Create rep
+# Make miRcheck files executable
+RUN chmod -R +x /programs/miRcheck
+
+# Create data directory
 RUN mkdir -p /data/inputs \
     /data/outputs
 
-#RUN cd ~ \
-# && chmod -R 777 ./miRcheck
-
+# Set workdir
 WORKDIR /data
