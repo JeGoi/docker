@@ -163,7 +163,7 @@ RUN cd /programs/miRcheck \
   && sed -i".bak" '4,12d' retrieve_genomic_regions.pl \
   && sed -i '4i \
 # usage:  retrieve_genomic_regions.pl sample_miRNA_matches  sample_genome.fa sample_miRNA_matches_genomic -win window_size \n\
-\n\
+\
 $hitfile =$ARGV[0]; # list of sequences and genomic coorinates\n\
 $genome = $ARGV[1]; #Fasta file of genomic sequence\n\
 $outfile = $ARGV [2]; #name of outputfile\n\
