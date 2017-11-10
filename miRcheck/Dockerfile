@@ -80,6 +80,7 @@ RUN cd /programs/miRcheck \
 
 # Add options in extract_einverted_20mers.pl
 RUN cd /programs/miRcheck \
+  && cp extract_einverted_20mers.pl extract_einverted_20mers.pl_source \
   && sed -i '26i \
 while (@ARGV){\n\
     $thisarg = shift @ARGV;\n\
@@ -102,6 +103,7 @@ usage:  extract_einverted_20mers.pl sample_IRs_f sample_IRs_f_20mers \\n";exit;}
 
 # Add options in fold_inverted_repeats.pl
 RUN cd /programs/miRcheck \
+  && cp fold_inverted_repeats.pl fold_inverted_repeats.pl_source \
   && sed -i '14i \
 \
 while (@ARGV){\n\
@@ -117,6 +119,7 @@ Output is saved in sample_IRs_f. \\n";exit;} \n\
 
 # Add options in run_einverted.pl
 RUN cd /programs/miRcheck \
+  && cp run_einverted.pl run_einverted.pl_source \
   && sed -i '28i \
 \
 while (@ARGV){\n\
@@ -131,15 +134,14 @@ while (@ARGV){\n\
     if ($thisarg eq "-mm") {$MM=shift @ARGV;} \n\
     if ($thisarg eq "-dist") {$DIST=shift @ARGV;} \n\
 } \n\n\
-if (not($outfile)){print "Retrieves genomic regions containing matches identifed by run_patscan.pl. \\n\
-usage:  retrieve_genomic_regions.pl [OPTIONS] sample_miRNA_matches  sample_genome.fa sample_miRNA_matches_genomic \\n";exit;} \n\
+if (not($outfile)){print "Script to run einverted (emboss) to find inverted repeats in  genome-sized sequences. Breaks genomic sequences up into overlapping fragments and calls einverted on each fragment.\\n \
+usage: run_einverted.pl sample_genome.fa genIR [options]\\n";exit;} \n\
 '  run_einverted.pl
 
 # Add options in run_patscan.pl
 RUN cd /programs/miRcheck \
-  && sed -i".bak" '8,10d' run_patscan.pl \
+  && cp run_patscan.pl run_patscan.pl_source \
   && sed -i 's/ARGV\[5\]/ARGV\[2\]/' run_patscan.pl \
-  && sed -i".bak" '10d' run_patscan.pl \
   && sed -i '10i \
 $mismatches = 0; \n\
 $deletions  = 0; \n\
@@ -157,6 +159,7 @@ if (not($outfile)){print "usage: simple_patscan.pl query.fa database.fa outfile 
 
 # Add options in retrieve_genomic_regions.pl
 RUN cd /programs/miRcheck \
+  && cp retrieve_genomic_regions.pl retrieve_genomic_regions.pl_source \
   && sed -i".bak" '4,12d' retrieve_genomic_regions.pl \
   && sed -i '4i \
 # usage:  retrieve_genomic_regions.pl sample_miRNA_matches  sample_genome.fa sample_miRNA_matches_genomic -win window_size \n\
@@ -171,7 +174,8 @@ while (@ARGV){\n\
     if ($thisarg eq "-win" ) {$WIN=shift @ARGV;} \n\
 } \n\n\
 \n\
-if (not($outfile)){print "usage: retrieve_genomic_regions.pl sample_miRNA_matches  sample_genome.fa sample_miRNA_matches_genomic -win window_size\\n";exit;}\n\
+if (not($outfile)){print "Retrieves genomic regions containing matches identifed by run_patscan.pl. \\n\
+usage:  retrieve_genomic_regions.pl sample_miRNA_matches  sample_genome.fa sample_miRNA_matches_genomic  [options]\\n";exit;} \n\
 '  retrieve_genomic_regions.pl
 
 # Make miRcheck files executable
