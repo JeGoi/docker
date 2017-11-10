@@ -96,7 +96,7 @@ while (@ARGV){\n\
     if ($thisarg eq "-max_two_nt") {$MAX_TWO_NT=shift @ARGV;} \n\
     if ($thisarg eq "-block") {$BLOCK =shift @ARGV;} \n\
 } \n\n\
-if (not($outfile)){print "Script that calls miRcheck on folded inverted repeats to identify 20mer miRNA candidates \n\
+if (not($out)){print "Script that calls miRcheck on folded inverted repeats to identify 20mer miRNA candidates \n\
 usage:  extract_einverted_20mers.pl sample_IRs_f sample_IRs_f_20mers \\n";exit;} \n\
 '  extract_einverted_20mers.pl 
 
@@ -108,6 +108,11 @@ while (@ARGV){\n\
     $thisarg = shift @ARGV;\n\
     if ($thisarg eq "-flanking_nt" ) {$FLANKING_NT=shift @ARGV;} \n\
 } \n\n\
+if (not($outfile)){print "Script to retrieve genomic sequences of inverted repeats identified by run_einverted.pl and fold with RNAfold \\n\
+usage: fold_inverted_repeats.pl sample_IRs sample_genome.fa sample_IRs_f \\n\
+sample_IRs is run_einverted.pl output file \\n\
+sample_genome.fa is genome file that run_einverted.pl was run on \\n\
+Output is saved in sample_IRs_f. \\n";exit;} \n\
 '  fold_inverted_repeats.pl
 
 # Add options in run_einverted.pl
@@ -126,7 +131,7 @@ while (@ARGV){\n\
     if ($thisarg eq "-mm") {$MM=shift @ARGV;} \n\
     if ($thisarg eq "-dist") {$DIST=shift @ARGV;} \n\
 } \n\n\
-if (not($outfile)){print "Retrieves genomic regions containing matches identifed by run_patscan.pl. \n\
+if (not($outfile)){print "Retrieves genomic regions containing matches identifed by run_patscan.pl. \\n\
 usage:  retrieve_genomic_regions.pl [OPTIONS] sample_miRNA_matches  sample_genome.fa sample_miRNA_matches_genomic \\n";exit;} \n\
 '  run_einverted.pl
 
@@ -166,7 +171,7 @@ while (@ARGV){\n\
     if ($thisarg eq "-win" ) {$WIN=shift @ARGV;} \n\
 } \n\n\
 \n\
-if (not($outfile)){print "usage: retrieve_genomic_regions.pl sample_miRNA_matches  sample_genome.fa sample_miRNA_matches_genomic -win window_size\n";exit;}\n\
+if (not($outfile)){print "usage: retrieve_genomic_regions.pl sample_miRNA_matches  sample_genome.fa sample_miRNA_matches_genomic -win window_size\\n";exit;}\n\
 '  retrieve_genomic_regions.pl
 
 # Make miRcheck files executable
