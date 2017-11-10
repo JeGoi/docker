@@ -44,15 +44,11 @@ RUN apt-add-repository -y ppa:j-4/vienna-rna  > /dev/null 2>&1 \
  && apt-get purge \
  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# Get miRcheck
-RUN cd ~ \
- && wget --quiet http://bartellab.wi.mit.edu/softwareDocs/miRcheck.tar \
- && tar -xf miRcheck.tar \
- && mv ./_miRcheck_scripts ./miRcheck \
- && rm -f miRcheck.tar
+# Program Directory
+RUN mkdir -p /programs \
 
 # Install scan_for_matches
-RUN cd ~ \
+RUN cd /programs \
  && wget --quiet http://www.theseed.org/servers/downloads/scan_for_matches.tgz \
  && tar -xzf scan_for_matches.tgz \
  && cd scan_for_matches \
@@ -61,23 +57,29 @@ RUN cd ~ \
  && chmod 777  scan_for_matches \
  && ln -sv scan_for_matches /usr/bin/scan_for_matches \
  && rm -f ../scan_for_matches.tgz
- 
-USER root
-ENV PATH="$PATH:/root/scan_for_matches"
+
+ENV PATH="$PATH:/programs/scan_for_matches"
+
+# Get miRcheck
+RUN cd /programs \
+ && wget --quiet http://bartellab.wi.mit.edu/softwareDocs/miRcheck.tar \
+ && tar -xf miRcheck.tar \
+ && mv ./_miRcheck_scripts ./miRcheck \
+ && rm -f miRcheck.tar
 
 # Update miRcheck lib localization
-RUN cd ~/miRcheck \
- && sed -i 's/\/home2\/mjonesrh/\/root/g' evaluate_miRNA_candidates.pl \
- && sed -i 's/\/home2\/mjonesrh/\/root/g' extract_einverted_20mers.pl \
- && sed -i 's/\/home2\/mjonesrh/\/root/g' fold_inverted_repeats.pl \
+RUN cd /programs/miRcheck \
+ && sed -i 's/\/home2\/mjonesrh/\/programs/g' evaluate_miRNA_candidates.pl \
+ && sed -i 's/\/home2\/mjonesrh/\/programs/g' extract_einverted_20mers.pl \
+ && sed -i 's/\/home2\/mjonesrh/\/programs/g' fold_inverted_repeats.pl \
  && sed -i 's/\/home2\/mjonesrh\/_miRNA_search\/_scripts\///g' fold_inverted_repeats.pl \
- && sed -i 's/\/home2\/mjonesrh/\/root/g' retrieve_genomic_regions.pl \
- && sed -i 's/\/home2\/mjonesrh/\/root/g' run_einverted.pl \
+ && sed -i 's/\/home2\/mjonesrh/\/programs/g' retrieve_genomic_regions.pl \
+ && sed -i 's/\/home2\/mjonesrh/\/programs/g' run_einverted.pl \
  && sed -i 's/\/home2\/mjonesrh\/exe\/linuxexe\/RNAfold_original/RNAfold/g' miRcheck.pm \
- && sed -i 's/\/home2\/mjonesrh/\/root/g' test_mircheck.pl
+ && sed -i 's/\/home2\/mjonesrh/\/programs/g' test_mircheck.pl
 
 # Add options in extract_einverted_20mers.pl
-RUN cd ~/miRcheck \
+RUN cd /programs/miRcheck \
   && sed -i '26i \
 while (@ARGV){\n\
     $thisarg = shift @ARGV;\n\
@@ -97,8 +99,9 @@ while (@ARGV){\n\
 '  extract_einverted_20mers.pl 
 
 # Add options in fold_inverted_repeats.pl
-RUN cd ~/miRcheck \
+RUN cd /programs/miRcheck \
   && sed -i '14i \
+\
 while (@ARGV){\n\
     $thisarg = shift @ARGV;\n\
     if ($thisarg eq "-flanking_nt" ) {$FLANKING_NT=shift @ARGV;} \n\
@@ -106,9 +109,9 @@ while (@ARGV){\n\
 '  fold_inverted_repeats.pl
 
 # Add options in run_einverted.pl
-RUN cd ~/miRcheck \
+RUN cd /programs/miRcheck \
   && sed -i '28i \
-\n\
+\
 while (@ARGV){\n\
     $thisarg = shift @ARGV;\n\
     if ($thisarg eq "-win" ) {$WIN=shift @ARGV;} \n\
@@ -121,10 +124,12 @@ while (@ARGV){\n\
     if ($thisarg eq "-mm") {$MM=shift @ARGV;} \n\
     if ($thisarg eq "-dist") {$DIST=shift @ARGV;} \n\
 } \n\n\
+if (not($outfile)){print "Retrieves genomic regions containing matches identifed by run_patscan.pl. \n\
+usage:  retrieve_genomic_regions.pl [OPTIONS] sample_miRNA_matches  sample_genome.fa sample_miRNA_matches_genomic \\n";exit;} \n\
 '  run_einverted.pl
 
 # Add options in run_patscan.pl
-RUN cd ~/miRcheck \
+RUN cd /programs/miRcheck \
   && sed -i".bak" '8,10d' run_patscan.pl \
   && sed -i 's/ARGV\[5\]/ARGV\[2\]/' run_patscan.pl \
   && sed -i".bak" '10d' run_patscan.pl \
@@ -132,7 +137,7 @@ RUN cd ~/miRcheck \
 $mismatches = 0; \n\
 $deletions  = 0; \n\
 $insertions = 0; \n\
-\n\
+\
 while (@ARGV){\n\
     $thisarg = shift @ARGV;\n\
     if ($thisarg eq "-mismatches" ) {$mismatches=shift @ARGV;} \n\
@@ -144,7 +149,7 @@ if (not($outfile)){print "usage: simple_patscan.pl query.fa database.fa outfile 
 '  run_patscan.pl
 
 # Add options in retrieve_genomic_regions.pl
-RUN cd ~/miRcheck \
+RUN cd /programs/miRcheck \
   && sed -i".bak" '4,12d' retrieve_genomic_regions.pl \
   && sed -i '4i \
 # usage:  retrieve_genomic_regions.pl sample_miRNA_matches  sample_genome.fa sample_miRNA_matches_genomic -win window_size \n\
@@ -153,7 +158,7 @@ $hitfile =$ARGV[0]; # list of sequences and genomic coorinates\n\
 $genome = $ARGV[1]; #Fasta file of genomic sequence\n\
 $outfile = $ARGV [2]; #name of outputfile\n\
 $WIN = 0; # number of flanking nucleotides to add to each side of putative miRNA  \n\
-\n\
+\
 while (@ARGV){\n\
     $thisarg = shift @ARGV;\n\
     if ($thisarg eq "-win" ) {$WIN=shift @ARGV;} \n\
