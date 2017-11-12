@@ -33,6 +33,14 @@ RUN apt-get --quiet update \
  && apt-get purge \
  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+RUN apt-add-repository -y ppa:j-4/vienna-rna \
+ && apt-get --quiet update \
+ && apt-get -qqy install \
+    vienna-rna \
+ && apt-get clean \
+ && apt-get purge \
+ && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
 # Create rep
 RUN mkdir /miRdup /data
 
@@ -42,17 +50,11 @@ RUN cd ~ \
  && unzip -qq miRdup_1.4.zip -d /miRdup \
  && rm -f miRdup_1.4.zip
 
-RUN apt-add-repository -y ppa:j-4/vienna-rna \
- && apt-get --quiet update \
- && apt-get -qqy install \
-    vienna-rna \
- && apt-get clean \
- && apt-get purge \
- && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN chmod -R +x /miRdup
+
+RUN export PATH="${PATH}:/miRdup/"
 
 RUN mkdir -p /data/inputs \
     /data/outputs
 
-#RUN chmod -R 777 /miRdup
-
-WORKDIR /miRdup
+WORKDIR /data
