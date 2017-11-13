@@ -7,7 +7,7 @@
 # Tags:             Proteomics|Genomics|General
 # Provides:         miRdup V1.4
 #
-# Run :             java -Xms500m -Xmx3500m -jar miRdup.jar -k all -r /usr/bin/
+# Run :             java -Xms500m -Xmx3500m -jar /miRdup/miRdup.jar -k all -r /usr/bin/
 # Run :             java -jar miRdup.jar -predict -i [PATH/TO/INPUT]/infile.fasta -d [PATH/TO/MODEL]/model.model -f [PATH/TO/OUTPUT/REP]/outfile -r /usr/bin/
 # If needed, copy new models in model folder
 # Copy:             find /miRdup/ -maxdepth 1 -type f -name '*.model' -exec cp {} [PATH/TO/MODEL] \;
